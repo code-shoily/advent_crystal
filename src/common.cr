@@ -7,7 +7,7 @@ module Common
 
   abstract class Solver
     abstract def read
-    abstract def run_1
-    abstract def run_2
+    abstract def solve_1
+    abstract def solve_2
   end
 end

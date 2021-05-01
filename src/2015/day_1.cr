@@ -15,11 +15,11 @@ module Year2015
       Common::Helper.read(YEAR, DAY).split("")
     end
 
-    def run_1
+    def solve_1
       @data.reduce(0) { |acc, i| i == "(" ? acc + 1 : acc - 1 }
     end
 
-    def run_2
+    def solve_2
       floor, idx = 0, 0
 
       while floor != -1
