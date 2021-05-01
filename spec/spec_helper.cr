@@ -1,2 +1,2 @@
 require "spec"
-require "../src/advent_crystal"
+require "../src/2015/*"
