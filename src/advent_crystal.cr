@@ -1,4 +1,4 @@
-require "2015/*"
+require "./2015/*"
 module AdventCrystal
   VERSION = "0.1.0"
 
