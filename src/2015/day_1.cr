@@ -1,14 +1,18 @@
-require "../helper"
+require "../common"
 
 module Year2015
-  class Day1
+  class Day1 < Common::Solver
     YEAR = 2015
     DAY  =    1
 
     @data : Array(String)
 
     def initialize
-      @data = Helper::Input.read(YEAR, DAY).split("")
+      @data = read
+    end
+
+    def read
+      Common::Helper.read(YEAR, DAY).split("")
     end
 
     def run_1
@@ -19,7 +23,7 @@ module Year2015
       floor, idx = 0, 0
 
       while floor != -1
-        floor = @data[idx] == "(" ? floor + 1 : floor - 1
+        floor += @data[idx] == "(" ? 1 : -1
         idx += 1
       end
 
