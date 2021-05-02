@@ -8,11 +8,15 @@ module Year2015::Day1
     @data : Array(Char)
 
     def initialize
-      @data = read
+      @data = process(Common::Helper.read(YEAR, DAY))
     end
 
-    def read
-      Common::Helper.read(YEAR, DAY).chars
+    def initialize(data : String)
+      @data = process(data)
+    end
+
+    def process(input : String)
+      input.chars
     end
 
     def run_1
@@ -22,7 +26,7 @@ module Year2015::Day1
     def run_2
       floor, idx = 0, 0
 
-      while floor != -1
+      until floor == -1
         floor += @data[idx] == '(' ? 1 : -1
         idx += 1
       end
