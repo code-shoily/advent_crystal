@@ -5,9 +5,9 @@ module Common
     end
   end
 
-  abstract class Solver
+  abstract class AbstractSolver
     abstract def read
-    abstract def solve_1
-    abstract def solve_2
+    abstract def run_1
+    abstract def run_2
   end
 end

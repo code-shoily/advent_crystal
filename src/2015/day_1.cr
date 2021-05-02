@@ -1,7 +1,7 @@
 require "../common"
 
-module Year2015
-  class Day1 < Common::Solver
+module Year2015::Day1
+  class Solver < Common::AbstractSolver
     YEAR = 2015
     DAY  =    1
 
@@ -15,11 +15,11 @@ module Year2015
       Common::Helper.read(YEAR, DAY).chars
     end
 
-    def solve_1
+    def run_1
       @data.reduce(0) { |acc, i| i == '(' ? acc + 1 : acc - 1 }
     end
 
-    def solve_2
+    def run_2
       floor, idx = 0, 0
 
       while floor != -1
