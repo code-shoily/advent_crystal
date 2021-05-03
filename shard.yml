@@ -2,7 +2,7 @@ name: advent_crystal
 version: 0.1.0
 
 authors:
-  - Mafinar Khan <mafinar@coffeemeetsbagel.com>
+  - Mafinar Khan <mafinar@gmail.com>
 
 targets:
   advent_crystal:
