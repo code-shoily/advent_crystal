@@ -1,10 +1,12 @@
 require "./2015/*"
+require "./2016/*"
+
 module AdventCrystal
   VERSION = "0.1.0"
 
-  macro solve(year, day, problem)
-    Year{{year}}::Day{{day}}.new().solve_{{problem}}()
+  macro solver(year, day)
+    Year{{year}}::Day{{day}}::Solver.new()
   end
 
-  puts solve(2015, 1, 1)
+  puts solver(2016, 1).run_1
 end
