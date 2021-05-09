@@ -36,7 +36,6 @@ describe Year2015::Day1::Solver, "Final run" do
       parameters.map { |(input, output)|
         solver = Year2015::Day1::Solver.new(input)
         solver.run_2.should eq output
-        puts solver.@data
       }
     end
 

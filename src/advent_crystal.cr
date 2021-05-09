@@ -8,5 +8,5 @@ module AdventCrystal
     Year{{year}}::Day{{day}}::Solver.new()
   end
 
-  puts solver(2016, 1).run_1
+  puts solver(2016, 1).run_2.inspect
 end
