@@ -14,6 +14,8 @@ module Year2016::Day1
   end
 
   class Position
+    getter x, y
+
     def initialize(@x : Int32, @y : Int32)
     end
 
@@ -36,24 +38,13 @@ module Year2016::Day1
     def distance
       @x.abs + @y.abs
     end
-
-    def as_tuple : Tuple(Int32, Int32)
-      {@x, @y}
-    end
-
-    def self.from_tuple(position : Tuple(Int32, Int32))
-      x, y = position
-      Position.new(x, y)
-    end
   end
 
   class Trail
     @data : Array(Tuple(Int32, Int32))
 
-    property data
-
     def initialize
-      @data = [{0, 0}]
+      @data = [] of Tuple(Int32, Int32)
     end
 
     def in_chunks
@@ -65,38 +56,37 @@ module Year2016::Day1
       output
     end
 
-    def expand_one(endpoints : Array(Tuple(Int32, Int32)))
+    def self.spread(endpoints : Array(Tuple(Int32, Int32)))
       result = [] of Tuple(Int32, Int32)
-      starting_point, stopping_point = endpoints
-      x_1, y_1 = starting_point
-      x_2, y_2 = stopping_point
+      return result if endpoints.size != 2
 
-      if x_1 == x_2
-        y_1.to(y_2) do |y|
-          result << {x_1, y}
-        end
-      else
-        x_1.to(x_2) do |x|
-          result << {x, y_1}
-        end
-      end
+      a, b = endpoints
 
-      result.delete(starting_point)
+      a[0].to(b[0]) { |x|
+        a[1].to(b[1]) { |y|
+          unless {x, y} == a
+            result << {x, y}
+          end
+        }
+      }
 
       result
     end
 
-    def expand
-      in_chunks.flat_map { |i| expand_one(i) }
+    def spread
+      in_chunks.flat_map { |i| Trail.spread(i) }
     end
 
     def revisit
       visits = Set(Tuple(Int32, Int32)).new
-      expand.each { |i|
+      spread.each { |i|
         return i if visits.includes?(i)
         visits.add(i)
       }
-      {0, 0}
+    end
+
+    def <<(waypoint : Tuple(Int32, Int32))
+      @data << waypoint
     end
   end
 
@@ -124,7 +114,7 @@ module Year2016::Day1
         take_steps_left(steps)
       end
 
-      @trail.data << @position.as_tuple
+      @trail << {@position.x, @position.y}
     end
 
     def take_steps_right(steps : Int32)
@@ -181,9 +171,7 @@ module Year2016::Day1
     end
 
     def process(input : String)
-      input
-        .split(",")
-        .map { |i| parse(i) }
+      input.split(",").map { |i| parse(i) }
     end
 
     def parse(command : String) : Tuple(Directions, Int32)
@@ -201,7 +189,11 @@ module Year2016::Day1
     def run_2
       movement = Movement.new
       movement.move_all(@data)
-      Position.from_tuple(movement.trail.revisit).distance
+      revisit = movement.trail.revisit
+      if revisit
+        x, y = revisit
+        Position.new(x, y).distance
+      end
     end
   end
 end
